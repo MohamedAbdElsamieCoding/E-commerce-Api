@@ -1,0 +1,29 @@
+{
+  "name": "e-commerce-api",
+  "version": "1.0.0",
+  "description": "e-commerce api",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MohamedAbdElsamieCoding/E-commerce-Api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MohamedAbdElsamieCoding/E-commerce-Api/issues"
+  },
+  "homepage": "https://github.com/MohamedAbdElsamieCoding/E-commerce-Api#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0"
+  }
+}
