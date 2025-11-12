@@ -10,6 +10,8 @@ app.use(express.json());
 app.use(cors());
 app.use(requestLogger);
 
+app.use("/uploads", express.static("uploads"));
+
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 

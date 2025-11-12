@@ -1,4 +1,4 @@
-import { AppError } from "../modules/utils/appError.js";
+import { AppError } from "../utils/appError.js";
 const allowedTo = (...roles) => {
   return (req, res, next) => {
     if (!req.currentUser || !roles.includes(req.currentUser.role))

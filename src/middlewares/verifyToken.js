@@ -1,16 +1,26 @@
 import { AppError } from "../utils/appError.js";
 import jwt from "jsonwebtoken";
 import httpStatusText from "../utils/httpStatusText.js";
+import User from "../modules/users/models/user.model.js";
 
-const verifyToken = (req, res, next) => {
-  const authHeaders =
+const verifyToken = async (req, res, next) => {
+  const authHeader =
     req.headers["Authorization"] || req.headers["authorization"];
-  if (!authHeaders || !authHeaders.startWith("Bearer "))
+  if (!authHeader)
     return next(new AppError("Unauthorized", 401, httpStatusText.FAIL));
-  const token = authHeaders.split(" ")[1];
+  const token = authHeader.split(" ")[1];
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    req.currentUser = decoded;
+    const user = await User.findById(decoded.id).select("-password");
+    if (!user)
+      return next(
+        new AppError(
+          "The user belonging to this token no longer exists",
+          401,
+          httpStatusText.FAIL
+        )
+      );
+    req.currentUser = user;
     next();
   } catch (err) {
     return next(new AppError("invalid Token", 403, httpStatusText.FAIL));

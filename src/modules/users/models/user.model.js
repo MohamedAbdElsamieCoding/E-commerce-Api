@@ -46,6 +46,14 @@ const userSchema = mongoose.Schema(
       type: String,
       default: null,
     },
+    profileImage: {
+      type: String,
+      default: "",
+    },
+    coverImage: {
+      type: String,
+      default: "",
+    },
   },
   { versionKey: false }
 );

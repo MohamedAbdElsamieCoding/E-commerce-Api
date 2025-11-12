@@ -12,10 +12,11 @@ import {
   logout,
 } from "../controllers/auth.controller.js";
 import verifyToken from "../../../middlewares/verifyToken.js";
+import upload from "../../../middlewares/upload.js";
 
 const router = express.Router();
 
-router.route("/register").post(register);
+router.route("/register").post(upload.single("profilePic"), register);
 router.route("/login").post(login);
 router.route("/refresh").post(refreshAccessToken);
 
