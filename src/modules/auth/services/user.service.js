@@ -37,7 +37,6 @@ export const registerUserService = async (userData, file) => {
 
 // Login service
 export const loginUserService = async (email, password) => {
-  const { email, password } = req.body;
   if (!email || !password)
     throw new AppError(
       "Email and Password are required",

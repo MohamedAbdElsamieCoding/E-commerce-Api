@@ -1,45 +1,78 @@
 import asyncWrapper from "../../../middlewares/asyncWrapper.js";
 import { Product } from "../models/product.model.js";
 import httpStatusText from "../../../utils/httpStatusText.js";
-import { userRoles } from "../../../utils/userRoles.js";
 import { productStatus } from "../../../utils/productStatus.js";
 import { AppError } from "../../../utils/appError.js";
+import {
+  approveProductService,
+  createProductService,
+  getAllApprovedProductsService,
+  getProductByIdService,
+  rejectProductService,
+  requestProductEditService,
+} from "../services/product.service.js";
 
 // Create product by only seller
 export const createProduct = asyncWrapper(async (req, res, next) => {
-  const { name, description, price, category, stock, images } = req.body;
-  if ((!name, !description, !price, !category, !stock, !images))
-    return next(new AppError("Fields are required", 400, httpStatusText.ERROR));
-  // Adding fields into models
-  const product = await Product.create({
-    name,
-    description,
-    price,
-    category,
-    stock,
-    images,
-    seller: req.currentUser.id,
-  });
-
+  const { currentId } = req.currentUser.id || req.currentUser._id;
+  const product = await createProductService(currentId, req.body);
   res.status(201).json({ status: httpStatusText.SUCCESS, data: product });
 });
 
+// Request product edit by seller
 export const requestProductEdit = asyncWrapper(async (req, res, next) => {
   const { productId } = req.params;
   const updates = req.body;
-  const product = await Product.findById(productId);
-  if (!product)
-    return next(new AppError("Product not found", 404, httpStatusText.FAIL));
-});
 
-// Get all products
-export const getAllProducts = asyncWrapper(async (req, res, next) => {
-  const products = await Product.find();
-  if (!products)
-    return next(new AppError("Products not found", 404, httpStatusText.FAIL));
+  await requestProductEditService(productId, updates, req.currentUser.id);
 
   res.status(200).json({
     status: httpStatusText.SUCCESS,
+    message: "Edit request sent to admin",
+  });
+});
+
+// Approved product edit by admin (new or edited)
+export const approveProduct = asyncWrapper(async (req, res, next) => {
+  const { productId } = req.params;
+
+  await approveProductService(productId);
+
+  res.status(200).json({
+    status: httpStatusText.SUCCESS,
+    data: { message: "Product approved successfully" },
+  });
+});
+
+//Rejected product by admin (new or edited)
+export const rejectProduct = asyncWrapper(async (req, res, next) => {
+  const { productId } = req.params;
+  const { reason } = req.body;
+
+  await rejectProductService(productId, reason);
+
+  res.status(200).json({
+    status: httpStatusText.SUCCESS,
+    data: { message: "Product rejected" },
+  });
+});
+
+// Get all approved products for public
+export const getAllApprovedProducts = asyncWrapper(async (req, res, next) => {
+  const products = await getAllApprovedProductsService();
+  res.status(200).json({
+    status: httpStatusText.SUCCESS,
     data: products,
+  });
+});
+// Get product by id
+export const getProductById = asyncWrapper(async (req, res, next) => {
+  const { productId } = req.params;
+
+  const product = await getProductByIdService(productId);
+
+  res.status(200).json({
+    status: httpStatusText.SUCCESS,
+    data: product,
   });
 });

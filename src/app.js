@@ -1,10 +1,10 @@
 import express from "express";
 import cors from "cors";
-import { requestLogger } from "./src/middlewares/requestLogger.js";
-import { errorHandler } from "./src/middlewares/errorHandler.js";
-import authRouter from "./src/modules/auth/routes/auth.route.js";
-import userRouter from "./src/modules/users/routes/user.route.js";
-import productRouter from "./src/modules/products/routes/product.route.js";
+import { requestLogger } from "./middlewares/requestLogger.js";
+import { errorHandler } from "./middlewares/errorHandler.js";
+import authRouter from "./modules/auth/routes/auth.route.js";
+import userRouter from "./modules/users/routes/user.route.js";
+import productRouter from "./modules/products/routes/product.route.js";
 
 const app = express();
 
