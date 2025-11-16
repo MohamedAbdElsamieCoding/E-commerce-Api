@@ -1,9 +1,8 @@
-import asyncWrapper from "../../../middlewares/asyncWrapper.js";
 import { Product } from "../models/product.model.js";
 import httpStatusText from "../../../utils/httpStatusText.js";
-import { userRoles } from "../../../utils/userRoles.js";
 import { productStatus } from "../../../utils/productStatus.js";
 import { AppError } from "../../../utils/appError.js";
+import cacheService from "../services/cache.service.js";
 
 // Create product by only seller service
 export const createProductService = async (currentUserId, productData) => {
@@ -22,6 +21,10 @@ export const createProductService = async (currentUserId, productData) => {
     images,
     seller: currentUserId,
   });
+
+  // Disable cache after adding product
+  await cacheService.del("allApprovedProducts");
+
   return product;
 };
 
@@ -59,6 +62,9 @@ export const approveProductService = async (productId) => {
   product.status = productStatus.APPROVED;
   product.rejectionReason = null;
 
+  // Disable cache after approval
+  await cacheService.del("allApprovedProducts");
+
   await product.save();
 
   return true;
@@ -81,6 +87,12 @@ export const rejectProductService = async (productId, reason) => {
 
 // Get all approved products for public service
 export const getAllApprovedProductsService = async () => {
+  const cacheKey = "allApprovedProducts";
+  // Check cache
+  const cachedProducts = await cacheService.get(cacheKey);
+  if (cachedProducts) return cachedProducts;
+
+  // Query DB
   const products = await Product.find({
     status: productStatus.APPROVED,
   })
@@ -89,6 +101,9 @@ export const getAllApprovedProductsService = async () => {
 
   if (!products)
     throw new AppError("Products not found", 404, httpStatusText.FAIL);
+
+  // Save to cache for 10m
+  await cacheService.set(cacheKey, products, 600);
 
   return products;
 };
