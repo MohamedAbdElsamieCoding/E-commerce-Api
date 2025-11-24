@@ -40,7 +40,7 @@ export const requestProductEditService = async (
     throw new AppError("Product not found", 404, httpStatusText.FAIL);
 
   if (product.seller.toString() !== currentUserId.toString())
-    return next(new AppError("Unauthorized", 403, httpStatusText.FAIL));
+    throw new AppError("Unauthorized", 403, httpStatusText.FAIL);
 
   product.editedData = updates;
   product.status = productStatus.PENDING;
@@ -109,7 +109,7 @@ export const getAllApprovedProductsService = async () => {
 };
 
 export const getProductByIdService = async (productId) => {
-  const product = await Product.findById({
+  const product = await Product.findOne({
     _id: productId,
     status: productStatus.APPROVED,
   })

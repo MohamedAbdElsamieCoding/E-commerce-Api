@@ -1,8 +1,5 @@
 import asyncWrapper from "../../../middlewares/asyncWrapper.js";
-import { Product } from "../models/product.model.js";
 import httpStatusText from "../../../utils/httpStatusText.js";
-import { productStatus } from "../../../utils/productStatus.js";
-import { AppError } from "../../../utils/appError.js";
 import {
   approveProductService,
   createProductService,
