@@ -108,6 +108,7 @@ export const getAllApprovedProductsService = async () => {
   return products;
 };
 
+// Get product by id service
 export const getProductByIdService = async (productId) => {
   const product = await Product.findOne({
     _id: productId,

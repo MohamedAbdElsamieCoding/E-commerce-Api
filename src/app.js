@@ -5,6 +5,7 @@ import { errorHandler } from "./middlewares/errorHandler.js";
 import authRouter from "./modules/auth/routes/auth.route.js";
 import userRouter from "./modules/users/routes/user.route.js";
 import productRouter from "./modules/products/routes/product.route.js";
+import categoryRouter from "./modules/categories/routes/category.route.js";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use("/uploads", express.static("uploads"));
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
+app.use("/api/category", categoryRouter);
 
 app.use(errorHandler);
 
