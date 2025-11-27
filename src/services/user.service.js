@@ -1,6 +1,6 @@
 import User from "../models/user.model.js";
-import { AppError } from "../../../utils/appError.js";
-import httpStatusText from "../../../utils/httpStatusText.js";
+import { AppError } from "../utils/appError.js";
+import httpStatusText from "../utils/httpStatusText.js";
 
 // Get all users by admin service
 export const getAllUsersService = async () => {

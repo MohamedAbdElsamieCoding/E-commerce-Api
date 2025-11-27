@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { productStatus } from "../../../utils/productStatus.js";
+import { productStatus } from "../utils/productStatus.js";
 
 const productSchema = mongoose.Schema(
   {
-    title: {
+    name: {
       type: String,
       required: true,
       trim: true,
@@ -18,9 +18,9 @@ const productSchema = mongoose.Schema(
       min: 0,
     },
     category: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
       required: true,
-      trim: true,
     },
     stock: {
       type: Number,

@@ -1,14 +1,14 @@
 import { Product } from "../models/product.model.js";
-import httpStatusText from "../../../utils/httpStatusText.js";
-import { productStatus } from "../../../utils/productStatus.js";
-import { AppError } from "../../../utils/appError.js";
+import httpStatusText from "../utils/httpStatusText.js";
+import { productStatus } from "../utils/productStatus.js";
+import { AppError } from "../utils/appError.js";
 import cacheService from "../services/cache.service.js";
 
 // Create product by only seller service
 export const createProductService = async (currentUserId, productData) => {
   const { name, description, price, category, stock, images } = productData;
 
-  if (!name || !description || !price || !category || !stock || !images)
+  if (!name || !description || !price || !category)
     throw new AppError("Fields are required", 400, httpStatusText.ERROR);
 
   // Adding fields into models
@@ -43,7 +43,7 @@ export const requestProductEditService = async (
     throw new AppError("Unauthorized", 403, httpStatusText.FAIL);
 
   product.editedData = updates;
-  product.status = productStatus.PENDING;
+  product.status = productStatus.EDITEDPENDING;
 
   await product.save();
   return true;
@@ -99,7 +99,7 @@ export const getAllApprovedProductsService = async () => {
     .populate("seller", "firstName lastName email")
     .populate("category", "name");
 
-  if (!products)
+  if (!products || products.length === 0)
     throw new AppError("Products not found", 404, httpStatusText.FAIL);
 
   // Save to cache for 10m

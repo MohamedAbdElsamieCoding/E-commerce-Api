@@ -7,9 +7,9 @@ import {
   rejectProduct,
   requestProductEdit,
 } from "../controllers/product.controller.js";
-import verifyToken from "../../../middlewares/verifyToken.js";
-import allowedTo from "../../../middlewares/allowedTo.js";
-import { userRoles } from "../../../utils/userRoles.js";
+import verifyToken from "../middlewares/verifyToken.js";
+import allowedTo from "../middlewares/allowedTo.js";
+import { userRoles } from "../utils/userRoles.js";
 
 const router = express.Router();
 

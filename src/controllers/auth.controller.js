@@ -1,5 +1,5 @@
-import asyncWrapper from "../../../middlewares/asyncWrapper.js";
-import httpStatusText from "../../../utils/httpStatusText.js";
+import asyncWrapper from "../middlewares/asyncWrapper.js";
+import httpStatusText from "../utils/httpStatusText.js";
 import {
   changePasswordService,
   forgotPasswordService,
@@ -10,7 +10,7 @@ import {
   resetPasswordService,
   updateUserService,
   verifyResetCodeService,
-} from "../services/user.service.js";
+} from "../services/auth.service.js";
 
 // Registration Controller
 export const register = asyncWrapper(async (req, res, next) => {

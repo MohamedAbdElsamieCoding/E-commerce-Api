@@ -1,10 +1,10 @@
-import httpStatusText from "../../../utils/httpStatusText.js";
-import { AppError } from "../../../utils/appError.js";
-import User from "../../users/models/user.model.js";
-import { userRoles } from "../../../utils/userRoles.js";
-import { generateJwt } from "../../../utils/generateJwt.js";
-import { sendEmail } from "../../../utils/sendEmail.js";
-import { generateAndSaveOtp } from "../services/otp.service.js";
+import httpStatusText from "../utils/httpStatusText.js";
+import { AppError } from "../utils/appError.js";
+import User from "../models/user.model.js";
+import { userRoles } from "../utils/userRoles.js";
+import { generateJwt } from "../utils/generateJwt.js";
+import { sendEmail } from "../utils/sendEmail.js";
+import { generateAndSaveOtp } from "./otp.service.js";
 
 import bcrypt from "bcrypt";
 

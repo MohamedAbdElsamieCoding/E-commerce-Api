@@ -5,10 +5,10 @@ import {
   getProfile,
   updateUser,
 } from "../controllers/user.controller.js";
-import verifyToken from "../../../middlewares/verifyToken.js";
-import allowedTo from "../../../middlewares/allowedTo.js";
-import { userRoles } from "../../../utils/userRoles.js";
-import upload from "../../../middlewares/upload.js";
+import verifyToken from "../middlewares/verifyToken.js";
+import allowedTo from "../middlewares/allowedTo.js";
+import { userRoles } from "../utils/userRoles.js";
+import upload from "../middlewares/upload.js";
 
 const router = express.Router();
 

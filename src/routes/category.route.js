@@ -6,9 +6,9 @@ import {
   getAllCategories,
   getCategoryById,
 } from "../controllers/category.controller.js";
-import allowedTo from "../../../middlewares/allowedTo.js";
-import verifyToken from "../../../middlewares/verifyToken.js";
-import { userRoles } from "../../../utils/userRoles.js";
+import allowedTo from "../middlewares/allowedTo.js";
+import verifyToken from "../middlewares/verifyToken.js";
+import { userRoles } from "../utils/userRoles.js";
 
 const router = express.Router();
 

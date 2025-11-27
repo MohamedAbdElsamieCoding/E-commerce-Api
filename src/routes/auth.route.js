@@ -11,8 +11,8 @@ import {
   refreshAccessToken,
   logout,
 } from "../controllers/auth.controller.js";
-import verifyToken from "../../../middlewares/verifyToken.js";
-import upload from "../../../middlewares/upload.js";
+import verifyToken from "../middlewares/verifyToken.js";
+import upload from "../middlewares/upload.js";
 
 const router = express.Router();
 

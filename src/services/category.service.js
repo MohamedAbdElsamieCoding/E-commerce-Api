@@ -1,7 +1,7 @@
 import { Category } from "../models/category.model.js";
-import { AppError } from "../../../utils/appError.js";
-import httpStatusText from "../../../utils/httpStatusText.js";
-import cacheService from "../../products/services/cache.service.js";
+import { AppError } from "../utils/appError.js";
+import httpStatusText from "../utils/httpStatusText.js";
+import cacheService from "../services/cache.service.js";
 
 // Admin category services
 

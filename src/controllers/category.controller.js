@@ -1,5 +1,5 @@
-import httpStatusText from "../../../utils/httpStatusText.js";
-import asyncWrapper from "../../../middlewares/asyncWrapper.js";
+import httpStatusText from "../utils/httpStatusText.js";
+import asyncWrapper from "../middlewares/asyncWrapper.js";
 import {
   createCategoryService,
   deleteCategoryService,

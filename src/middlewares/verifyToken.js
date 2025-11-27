@@ -1,7 +1,7 @@
-import { AppError } from "../utils/appError.js";
 import jwt from "jsonwebtoken";
+import { AppError } from "../utils/appError.js";
 import httpStatusText from "../utils/httpStatusText.js";
-import User from "../modules/users/models/user.model.js";
+import User from "../models/user.model.js";
 
 const verifyToken = async (req, res, next) => {
   const authHeader =
