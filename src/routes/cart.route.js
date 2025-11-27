@@ -1,4 +1,7 @@
 import express from "express";
+import verifyToken from "../middlewares/verifyToken.js";
+import allowedTo from "../middlewares/allowedTo.js";
+import { userRoles } from "../utils/userRoles.js";
 import {
   addToCart,
   getLoggedUserCart,
@@ -8,6 +11,7 @@ import {
 } from "../controllers/cart.controller.js";
 
 const router = express.Router();
+router.use(verifyToken, allowedTo(userRoles.USER));
 
 router.route("/").get(getLoggedUserCart).post(addToCart).delete(clearCart);
 
