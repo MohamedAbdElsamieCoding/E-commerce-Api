@@ -63,11 +63,7 @@ export const deleteCategoryService = async (categoryId) => {
 export const getAllCategoriesService = async () => {
   const cacheKey = "getAllCategories";
   const cachedCategories = await cacheService.get(cacheKey);
-  if (cachedCategories)
-    return res.status(200).json({
-      status: httpStatusText.SUCCESS,
-      data: cachedCategories,
-    });
+  if (cachedCategories) return cachedCategories;
 
   const categories = await Category.find({ isActive: true }).populate(
     "parent",
@@ -86,11 +82,7 @@ export const getCategoryByIdService = async (categoryId) => {
   // Check cache
   const cacheKey = `getCategoryById_${categoryId}`;
   const cachedCategory = await cacheService.get(cacheKey);
-  if (cachedCategory)
-    return res.status(200).json({
-      status: httpStatusText.SUCCESS,
-      data: cachedCategory,
-    });
+  if (cachedCategory) return cachedCategory;
 
   // Query DB with soft delete check
   const category = await Category.findOne({ _id: categoryId, isActive: true });
